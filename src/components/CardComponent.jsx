@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 img, name -> title , price -> subtitle, description
 */
 
-const CardComponent = ({img, name, price, description}) => {
+const CardComponent = ({img, title, price, description}) => {
     return (
         <Card sx={{ width: "20rem" }} square raised>
             <CardActionArea>
@@ -15,9 +15,9 @@ const CardComponent = ({img, name, price, description}) => {
                 image={img}
             />
             </CardActionArea>
-            <CardHeader title="main title" subheader="sub title"></CardHeader>
+            <CardHeader title={title} subheader={price}></CardHeader>
             <CardContent>
-            <Typography>description</Typography>
+            <Typography>{description}</Typography>
             </CardContent>
             <CardActions>
             <Button variant="text" color="primary">
