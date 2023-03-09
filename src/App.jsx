@@ -1,15 +1,13 @@
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
 import { Container } from '@mui/material';
-import HomePage from './pages/HomePage';
+import LoginPage from './pages/LoginPage'
 
 function App() {
   return (
     <Container>
       <Navbar />
-      {/* <FirstComponent /> */}
-      {/* <SecondComponent /> */}
-      <HomePage />
+      <LoginPage />
     </Container>
   );
 }
