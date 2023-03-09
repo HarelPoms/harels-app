@@ -3,12 +3,13 @@ import { Container } from '@mui/material';
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
 import Router from "./routes/Router"
+import MuiNavbar from './components/Navbar/MuiNavbar';
 
 function App() {
   return (
     <Container>
       <header>
-        <Navbar />
+        <MuiNavbar />
       </header>
       <main>
         <Router />
