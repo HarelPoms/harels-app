@@ -14,7 +14,9 @@ import {NavLink} from "react-router-dom";
 import ROUTES from "../../routes/ROUTES"
 
 const pages = [
-  {label: "Home Page", url:ROUTES.HOME}, {label:"Register", url:ROUTES.REGISTER}
+  {label: "Home Page", url:ROUTES.HOME},
+  {label:"Register", url:ROUTES.REGISTER}, 
+  {label: "Login Page", url:ROUTES.LOGIN}
   ];
 
 const MuiNavbar = () => {
@@ -44,7 +46,7 @@ const MuiNavbar = () => {
                 onClick={handleCloseNavMenu}
                 to={page.url}
               >
-                <Typography sx={{ my: 2, color: "white", display: "block" }}>
+                <Typography sx={{ my: 2, color: "white", display: "block", p:2 }}>
                   {page.label}
                 </Typography>
                 
