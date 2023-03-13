@@ -11,7 +11,9 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import Alert from "@mui/material/Alert";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import validateRegisterSchema from "../validation/registerValidation";
 
 const theme = createTheme();
 
@@ -22,9 +24,10 @@ const RegisterPage = () => {
         email: "",
         password: "",
     });
+    const [inputsErrorsState, setInputsErrorsState] = useState({});
     const handleBtnClick = (ev) => {
-        console.log(ev);
-        console.log("clicked");
+        const joiResponse = validateRegisterSchema(inputState);
+        setInputsErrorsState(joiResponse);
     };
     const handleInputChange = (ev) => {
         let newInputState = JSON.parse(JSON.stringify(inputState));
@@ -63,6 +66,11 @@ const RegisterPage = () => {
                     value={inputState.firstName}
                     onChange={handleInputChange}
                     />
+                    {inputsErrorsState.firstName && (
+                    <Alert severity="warning">
+                        {inputsErrorsState.firstName.join("<br>")}
+                    </Alert>
+                    )}
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <TextField
@@ -75,6 +83,11 @@ const RegisterPage = () => {
                     value={inputState.lastName}
                     onChange={handleInputChange}
                     />
+                    {inputsErrorsState.lastName && (
+                    <Alert severity="warning">
+                        {inputsErrorsState.lastName.join("<br>")}
+                    </Alert>
+                    )}
                 </Grid>
                 <Grid item xs={12}>
                     <TextField
@@ -87,6 +100,11 @@ const RegisterPage = () => {
                     value={inputState.email}
                     onChange={handleInputChange}
                     />
+                    {inputsErrorsState.email && (
+                    <Alert severity="warning">
+                        {inputsErrorsState.email.join("<br>")}
+                    </Alert>
+                    )}
                 </Grid>
                 <Grid item xs={12}>
                     <TextField
@@ -100,6 +118,11 @@ const RegisterPage = () => {
                     value={inputState.password}
                     onChange={handleInputChange}
                     />
+                    {inputsErrorsState.password && (
+                    <Alert severity="warning">
+                        {inputsErrorsState.password.join("<br>")}
+                    </Alert>
+                    )}
                 </Grid>
                 <Grid item xs={12}>
                     <FormControlLabel

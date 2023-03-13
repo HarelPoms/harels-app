@@ -41,15 +41,19 @@ const MuiNavbar = () => {
           {/* main navbar */}
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
-              <NavLink
-                key={page}
-                onClick={handleCloseNavMenu}
-                to={page.url}
-              >
-                <Typography sx={{ my: 2, color: "white", display: "block", p:2 }}>
-                  {page.label}
-                </Typography>
-                
+              <NavLink key={page.url} to={page.url}>
+                {({ isActive }) => (
+                  <Typography
+                    sx={{
+                      my: 2,
+                      color: `${isActive ? "red" : "white"}`,
+                      display: "block",
+                      p: 2,
+                    }}
+                  >
+                    {page.label}
+                  </Typography>
+                )}
               </NavLink>
             ))}
           </Box>
@@ -90,9 +94,18 @@ const MuiNavbar = () => {
               {pages.map((page) => (
                 <MenuItem key={"minilinks" + page.url} onClick={handleCloseNavMenu}>
                   <NavLink to={page.url}>
-                    <Typography>
-                      {page.label}
-                    </Typography>
+                    {({isActive}) => (
+                        <Typography sx={{
+                          my: 2,
+                          color: `${isActive ? "red" : "blue"}`,
+                          display: "block",
+                          p: 2,
+                        }}>
+                          {page.label}
+                        </Typography>
+                      )
+                    }
+                    
                   </NavLink>
                 </MenuItem>
               ))}
