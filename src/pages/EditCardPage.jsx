@@ -15,9 +15,10 @@ import validateEditSchema from "../validation/editValidation";
 
 const EditCardPage = () => {
   const [inputState, setInputState] = useState({
+    img: "",
     title: "",
     price: "",
-    descr: "",
+    description: "",
   });
   const [inputsErrorsState, setInputsErrorsState] = useState({});
   const navigate = useNavigate();
@@ -75,6 +76,25 @@ const EditCardPage = () => {
               <TextField
                 required
                 fullWidth
+                id="img"
+                label="Image URL"
+                name="img"
+                autoComplete="img"
+                value={inputState.img}
+                onChange={handleInputChange}
+              />
+              {inputsErrorsState.img && (
+                <Alert severity="warning">
+                  {inputsErrorsState.img.map((item) => (
+                    <div key={"title-errors" + item}>{item}</div>
+                  ))}
+                </Alert>
+              )}
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
                 id="title"
                 label="Title"
                 name="title"
@@ -114,17 +134,17 @@ const EditCardPage = () => {
               <TextField
                 required
                 fullWidth
-                name="descr"
+                name="description"
                 label="Description"
-                id="descr"
-                autoComplete="descr"
+                id="description"
+                autoComplete="description"
                 value={inputState.descr}
                 onChange={handleInputChange}
               />
-              {inputsErrorsState.descr && (
+              {inputsErrorsState.description && (
                 <Alert severity="warning">
-                  {inputsErrorsState.descr.map((item) => (
-                    <div key={"descr-errors" + item}>{item}</div>
+                  {inputsErrorsState.description.map((item) => (
+                    <div key={"description-errors" + item}>{item}</div>
                   ))}
                 </Alert>
               )}
