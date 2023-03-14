@@ -24,10 +24,10 @@ const pages = [
 
 const MuiNavbar = ({setIsDarkThemeFromApp}) => {
   const [anchorElNav, setAnchorElNav] = useState(null);
-  const [isDarkThemeNav, setIsDarkTheme] = useState(false);
+  const [isDarkThemeNav, setIsDarkThemeNav] = useState(false);
 
   const handleInternalToggleClick = () =>{
-    setIsDarkTheme(!isDarkThemeNav);
+    setIsDarkThemeNav(!isDarkThemeNav);
     setIsDarkThemeFromApp();
   }
 
@@ -65,7 +65,7 @@ const MuiNavbar = ({setIsDarkThemeFromApp}) => {
                 )}
               </NavLink>
             ))}
-              <Switch onChange={setIsDarkThemeFromApp} sx={{backgroundColor: "white"}} />
+              <Switch value={isDarkThemeNav} onChange={handleInternalToggleClick} sx={{backgroundColor: "white"}} />
           </Box>
           {/* hamburger with menu */}
           <Box
@@ -119,7 +119,7 @@ const MuiNavbar = ({setIsDarkThemeFromApp}) => {
                   </NavLink>
                 </MenuItem>
               ))}
-              <Switch onChange={setIsDarkThemeFromApp} />
+              <Switch value={isDarkThemeNav} onChange={handleInternalToggleClick} />
             </Menu>
           </Box>
         </Toolbar>
