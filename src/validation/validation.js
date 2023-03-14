@@ -8,7 +8,6 @@ const validation = (schema, userInput) => {
     return null;
   }
   const { details } = error; // const details = error.details
-  console.log("details", details);
   for (let item of details) {
     if (!errorObjArr[item.context.key]) {
       /*

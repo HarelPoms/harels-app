@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from "react";
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -13,17 +14,38 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Copyright from '../components/Copyright';
+import validateLoginSchema from '../validation/loginValidation';
+import Alert from "@mui/material/Alert";
 
 const theme = createTheme();
 
 const LoginPage = () => {
+
+    const [inputState, setInputState] = useState({
+        email: "",
+        password: "",
+    });
+    const [loginInputsErrorsState, setLoginInputsErrorsState] = useState({});
+    const handleInputChange = (ev) => {
+        let newInputState = JSON.parse(JSON.stringify(inputState));
+        newInputState[ev.target.id] = ev.target.value;
+        setInputState(newInputState);
+    };
+    const handleBtnClick = (ev) => {
+        const joiResponse = validateLoginSchema(inputState);
+        setLoginInputsErrorsState(joiResponse);
+    };
     const handleSubmit = (event) => {
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
+        // const data = new FormData(event.currentTarget);
+        // console.log({
+        //     email: data.get('email'),
+        //     password: data.get('password'),
+        // });
+
+        const joiResponse = validateLoginSchema(inputState);
+        setLoginInputsErrorsState(joiResponse);
+
     };
 
     return (
@@ -44,6 +66,7 @@ const LoginPage = () => {
             <Typography component="h1" variant="h5">
                 Login
             </Typography>
+            {/* onSubmit={handleSubmit} */}
             <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                 <TextField
                 margin="normal"
@@ -54,7 +77,14 @@ const LoginPage = () => {
                 name="email"
                 autoComplete="email"
                 autoFocus
+                value={inputState.email}
+                onChange={handleInputChange}
                 />
+                {loginInputsErrorsState.email && (
+                    <Alert severity="warning">
+                        {loginInputsErrorsState.email.join("<br>")}
+                    </Alert>
+                )}
                 <TextField
                 margin="normal"
                 required
@@ -64,16 +94,25 @@ const LoginPage = () => {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                value={inputState.password}
+                onChange={handleInputChange}
                 />
+                {loginInputsErrorsState.password && (
+                    <Alert severity="warning">
+                        {loginInputsErrorsState.password.join("\n")}
+                    </Alert>
+                )}
                 <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
                 />
+                {/* onClick={handleBtnClick} */}
                 <Button
                 type="submit"
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
+                
                 >
                 Sign In
                 </Button>
