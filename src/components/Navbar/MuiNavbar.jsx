@@ -10,6 +10,9 @@ import Container from "@mui/material/Container";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import {NavLink} from "react-router-dom";
+import { useState } from "react";
+
+import {Switch} from '@mui/material';
 
 import ROUTES from "../../routes/ROUTES"
 
@@ -19,8 +22,14 @@ const pages = [
   {label: "Login Page", url:ROUTES.LOGIN}
   ];
 
-const MuiNavbar = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
+const MuiNavbar = ({setIsDarkThemeFromApp}) => {
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [isDarkThemeNav, setIsDarkTheme] = useState(false);
+
+  const handleInternalToggleClick = () =>{
+    setIsDarkTheme(!isDarkThemeNav);
+    setIsDarkThemeFromApp();
+  }
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -56,6 +65,7 @@ const MuiNavbar = () => {
                 )}
               </NavLink>
             ))}
+              <Switch onChange={setIsDarkThemeFromApp} sx={{backgroundColor: "white"}} />
           </Box>
           {/* hamburger with menu */}
           <Box
@@ -109,6 +119,7 @@ const MuiNavbar = () => {
                   </NavLink>
                 </MenuItem>
               ))}
+              <Switch onChange={setIsDarkThemeFromApp} />
             </Menu>
           </Box>
         </Toolbar>

@@ -1,6 +1,5 @@
 import { Container, ThemeProvider,
   createTheme,
-  Switch,
   CssBaseline, } from '@mui/material';
 import { useState } from "react";
 
@@ -24,16 +23,15 @@ const dark = {
 
 function App() {
   const [isDarkTheme, setIsDarkTheme] = useState(false);
-  const changeTheme = () => {
-    setIsDarkTheme(!isDarkTheme);
+  const handleToggle = () => {
+    setIsDarkTheme(!isDarkTheme); //localhost:3000/edit/123213
   };
   return (
     <ThemeProvider theme={isDarkTheme ? createTheme(dark) : createTheme(light)}>
       <CssBaseline />
       <Container>
         <header>
-          <Switch checked={isDarkTheme} onChange={changeTheme} />
-          <MuiNavbar />
+          <MuiNavbar setIsDarkThemeFromApp={handleToggle} />
         </header>
         <main>
           <Router />
