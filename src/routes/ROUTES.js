@@ -2,7 +2,7 @@ const ROUTES = {
     HOME: "/",
     REGISTER: "/register",
     LOGIN: "/login",
-    PAGENOTFOUND: "/404"
+    PAGENOTFOUND: "/NOTFOUND"
 };
 
 export default ROUTES;
