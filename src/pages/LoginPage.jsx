@@ -8,7 +8,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
@@ -27,6 +27,7 @@ const LoginPage = () => {
         password: "",
     });
     const [loginInputsErrorsState, setLoginInputsErrorsState] = useState({});
+    const navigate = useNavigate();
     const handleInputChange = (ev) => {
         let newInputState = JSON.parse(JSON.stringify(inputState));
         newInputState[ev.target.id] = ev.target.value;
@@ -46,6 +47,10 @@ const LoginPage = () => {
 
         const joiResponse = validateLoginSchema(inputState);
         setLoginInputsErrorsState(joiResponse);
+        if (!joiResponse) {
+            //move to homepage
+            navigate(ROUTES.HOME);
+        }
 
     };
 

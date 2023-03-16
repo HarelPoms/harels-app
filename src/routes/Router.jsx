@@ -12,6 +12,7 @@ const Router = () => {
             <Route path={ROUTES.REGISTER} element={<RegisterPage />} />
             <Route path={ROUTES.LOGIN} element={<LoginPage />} />
             <Route path="/edit/:id" element={<EditCardPage />} />
+            <Route path="*" element={<h1>404</h1>} />
         </Routes>
     );
 };

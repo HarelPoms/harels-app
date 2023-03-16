@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -12,6 +12,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import ROUTES from "../routes/ROUTES";
 import validateEditSchema from "../validation/editValidation";
+import validateId from "../validation/idValidation";
 
 const initialCardsArr = [
   {
@@ -53,12 +54,20 @@ const initialCardsArr = [
 
 const EditCardPage = () => {
   const { id } = useParams();
-  const [inputState, setInputState] = useState(
-    initialCardsArr.find((item) => item.id == id)
-  );
+  const [inputState, setInputState] = useState({});
   const [inputsErrorsState, setInputsErrorsState] = useState({});
   const navigate = useNavigate();
 
+  useEffect(() => {
+    let isIdValid = validateId(id);
+    if (isIdValid) {
+      setInputState(initialCardsArr.find((item) => item.id == id));
+    }
+    else{
+      console.log("err");
+      //navigate(ROUTES.PAGENOTFOUND);
+    }
+  }, [id]);
   const handleSaveBtnClick = (ev) => {
     const joiResponse = validateEditSchema(inputState);
     setInputsErrorsState(joiResponse);
