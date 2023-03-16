@@ -49,11 +49,10 @@ const MuiNavbar = ({isDarkThemeBool, setIsDarkThemeFromApp}) => {
                   <Typography
                     sx={{
                       my: 2,
-                      color: `${isActive ? "red" : "white"}`,
                       display: "block",
                       p: 2,
                     }}
-                  >
+                  color={isActive ? "error" : "info"}>
                     {page.label}
                   </Typography>
                 )}
