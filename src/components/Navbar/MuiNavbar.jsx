@@ -22,14 +22,8 @@ const pages = [
   {label: "Login Page", url:ROUTES.LOGIN}
   ];
 
-const MuiNavbar = ({setIsDarkThemeFromApp}) => {
+const MuiNavbar = ({isDarkThemeBool, setIsDarkThemeFromApp}) => {
   const [anchorElNav, setAnchorElNav] = useState(null);
-  const [isDarkThemeNav, setIsDarkThemeNav] = useState(false);
-
-  const handleInternalToggleClick = () =>{
-    setIsDarkThemeNav(!isDarkThemeNav);
-    setIsDarkThemeFromApp();
-  }
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -67,7 +61,7 @@ const MuiNavbar = ({setIsDarkThemeFromApp}) => {
             ))}
               
           </Box>
-          <Switch value={isDarkThemeNav} onChange={handleInternalToggleClick} />
+          <Switch value={isDarkThemeBool} onChange={setIsDarkThemeFromApp} />
           {/* hamburger with menu */}
           <Box
             sx={{

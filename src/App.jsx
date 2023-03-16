@@ -31,7 +31,7 @@ function App() {
       <CssBaseline />
       <Container>
         <header>
-          <MuiNavbar setIsDarkThemeFromApp={handleToggle} />
+          <MuiNavbar isDarkThemeBool={isDarkTheme} setIsDarkThemeFromApp={handleToggle} />
         </header>
         <main>
           <Router />
