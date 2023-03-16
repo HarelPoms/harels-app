@@ -174,7 +174,7 @@ const EditCardPage = () => {
                 label="Description"
                 id="description"
                 autoComplete="description"
-                value={inputState.descr}
+                value={inputState.description}
                 onChange={handleInputChange}
               />
               {inputsErrorsState.description && (
