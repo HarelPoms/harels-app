@@ -59,7 +59,7 @@ const EditCardPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    let isIdValid = validateId(id);
+    let isIdValid = validateId(id, initialCardsArr.length - 1);
     if (isIdValid) {
       setInputState(initialCardsArr.find((item) => item.id == id));
     }
