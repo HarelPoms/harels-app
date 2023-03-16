@@ -64,7 +64,6 @@ const EditCardPage = () => {
       setInputState(initialCardsArr.find((item) => item.id == id));
     }
     else{
-      //console.log("err");
       navigate(ROUTES.PAGENOTFOUND);
     }
   }, [id]);
