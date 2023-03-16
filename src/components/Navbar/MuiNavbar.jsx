@@ -65,8 +65,9 @@ const MuiNavbar = ({setIsDarkThemeFromApp}) => {
                 )}
               </NavLink>
             ))}
-              <Switch value={isDarkThemeNav} onChange={handleInternalToggleClick} sx={{backgroundColor: "white"}} />
+              
           </Box>
+          <Switch value={isDarkThemeNav} onChange={handleInternalToggleClick} />
           {/* hamburger with menu */}
           <Box
             sx={{
@@ -119,7 +120,6 @@ const MuiNavbar = ({setIsDarkThemeFromApp}) => {
                   </NavLink>
                 </MenuItem>
               ))}
-              <Switch value={isDarkThemeNav} onChange={handleInternalToggleClick} />
             </Menu>
           </Box>
         </Toolbar>
