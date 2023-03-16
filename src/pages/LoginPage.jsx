@@ -6,9 +6,9 @@ import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
+import { Link } from "react-router-dom";
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
@@ -16,6 +16,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Copyright from '../components/Copyright';
 import validateLoginSchema from '../validation/loginValidation';
 import Alert from "@mui/material/Alert";
+import ROUTES from "../routes/ROUTES";
 
 const theme = createTheme();
 
@@ -123,8 +124,10 @@ const LoginPage = () => {
                     </Link>
                 </Grid>
                 <Grid item>
-                    <Link href="#" variant="body2">
-                    {"Don't have an account? Sign Up"}
+                    <Link to={ROUTES.REGISTER}>
+                        <Typography variant="body2">
+                        Did not have an account? Sign up
+                        </Typography>
                     </Link>
                 </Grid>
                 </Grid>
