@@ -87,6 +87,11 @@ const EditCardPage = () => {
     newInputState[ev.target.id] = ev.target.value;
     setInputState(newInputState);
   };
+  //ensures the input state is synchronized with the latest character input
+  useEffect(() => {
+    setInputState((newInputState) => newInputState);
+  }, [inputState]);
+
   return (
     <Container component="main" maxWidth="xs">
       <Box

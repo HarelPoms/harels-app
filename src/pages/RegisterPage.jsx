@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -35,6 +35,9 @@ const RegisterPage = () => {
         newInputState[ev.target.id] = ev.target.value;
         setInputState(newInputState);
     };
+    useEffect(() => {
+        setInputState((newInputState) => newInputState);
+    }, [inputState]);
     return (
         <ThemeProvider theme={theme}>
         <Container component="main" maxWidth="xs">

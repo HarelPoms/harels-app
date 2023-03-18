@@ -32,7 +32,6 @@ const LoginPage = () => {
         let newInputState = JSON.parse(JSON.stringify(inputState));
         newInputState[ev.target.id] = ev.target.value;
         setInputState(newInputState);
-        console.log("🚀 ~ file: LoginPage.jsx:35 ~ handleInputChange ~ inputState:", inputState)
     };
     
     useEffect(() => {
