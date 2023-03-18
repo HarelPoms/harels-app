@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -32,18 +32,15 @@ const LoginPage = () => {
         let newInputState = JSON.parse(JSON.stringify(inputState));
         newInputState[ev.target.id] = ev.target.value;
         setInputState(newInputState);
+        console.log("🚀 ~ file: LoginPage.jsx:35 ~ handleInputChange ~ inputState:", inputState)
     };
-    const handleBtnClick = (ev) => {
-        const joiResponse = validateLoginSchema(inputState);
-        setLoginInputsErrorsState(joiResponse);
-    };
+    
+    useEffect(() => {
+        setInputState((newInputState) => newInputState);
+    }, [inputState]);
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        // const data = new FormData(event.currentTarget);
-        // console.log({
-        //     email: data.get('email'),
-        //     password: data.get('password'),
-        // });
 
         const joiResponse = validateLoginSchema(inputState);
         setLoginInputsErrorsState(joiResponse);
