@@ -1,7 +1,8 @@
 import Joi from "joi";
 
-const validateId = (userInput, itemLimit) => {
-    const idSchema = Joi.number().min(0).max(itemLimit).required();
+const idSchema = Joi.number().min(1).required();
+
+const validateId = (userInput) => {
     let res = idSchema.validate(userInput);
     if(res.hasOwnProperty('error')) {
         return(false);

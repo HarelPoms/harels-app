@@ -8,6 +8,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Alert from "@mui/material/Alert";
 import EditIcon from "@mui/icons-material/Edit";
+import { CircularProgress } from '@mui/material';
 import { useNavigate, useParams } from "react-router-dom";
 
 import ROUTES from "../routes/ROUTES";
@@ -54,14 +55,19 @@ const initialCardsArr = [
 
 const EditCardPage = () => {
   const { id } = useParams();
-  const [inputState, setInputState] = useState({});
+  const [inputState, setInputState] = useState(null);
   const [inputsErrorsState, setInputsErrorsState] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
-    let isIdValid = validateId(id, initialCardsArr.length - 1);
+    let isIdValid = validateId(id);
     if (isIdValid) {
-      setInputState(initialCardsArr.find((item) => item.id == id));
+      let editedCard = initialCardsArr.find((item) => item.id == id);
+      if(!editedCard){
+        navigate(ROUTES.PAGENOTFOUND);
+        return;
+      }
+      setInputState(editedCard);
     }
     else{
       navigate(ROUTES.PAGENOTFOUND);
@@ -87,10 +93,15 @@ const EditCardPage = () => {
     newInputState[ev.target.id] = ev.target.value;
     setInputState(newInputState);
   };
+
   //ensures the input state is synchronized with the latest character input
   useEffect(() => {
     setInputState((newInputState) => newInputState);
   }, [inputState]);
+
+  if(!inputState){
+    return <CircularProgress />;
+  }
 
   return (
     <Container component="main" maxWidth="xs">
