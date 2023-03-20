@@ -6,27 +6,10 @@ import NumberTextBox from "./ReRenderComponents/textBox"
 const ReRenderPage = () => {
     const [txt, setTxt] = useState(0);
     const handleTxtChange = useCallback((e) => {
-        // console.log(typeof(+(e.target.value)));
-        console.log("Setting Val");
-        console.log(parseInt(e.target.value));
-        // const regex = new RegExp("^[0-9]+$", "ig");
-        // if (e.target.value === "" || regex.test(e.target.value)) {
-        //     console.log("test passed");
-        //     setTxt(e.target.value);
-        // }
-        // if(isNaN(parseInt(e.target.value))){
-        //     console.log("Not a Number");
-        // }
-        // else{
-        //     console.log("Is a Number");
-        // }
-        // console.log("txt from box before change", txt);
+        console.log(txt);
         if(!isNaN(parseInt(e.target.value))){
             setTxt(e.target.value);
         }
-        
-        //setTxt(e.target.value);
-        // console.log("txt from box after change", txt);
     }, [txt]);
     const plusOneClick = useCallback(() => {
         setTxt(Number(txt) + 1);
