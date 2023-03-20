@@ -19,7 +19,6 @@ const ReRenderPage = () => {
     }, [txt]);
     return (
         <Fragment>
-            {/* <input type="number" value={txt} onChange={handleTxtChange} /> */}
             <NumberTextBox txtValue={txt} onChange={handleTxtChange}></NumberTextBox>
             <PlusOneButton onClick={plusOneClick}>Increase By One</PlusOneButton>
             <MinusOneButton onClick={minusOneClick}>Decrease By One</MinusOneButton>
