@@ -19,7 +19,7 @@ const ReRenderPage = () => {
     }, [txt]);
     const plusOneClick = useCallback(() => {
         console.log("txt from box", txt);
-        setTxt(txt + 1);
+        setTxt(Number(txt) + 1);
     }, [txt]);
     const minusOneClick = useCallback(() => {
         console.log("txt from box", txt);

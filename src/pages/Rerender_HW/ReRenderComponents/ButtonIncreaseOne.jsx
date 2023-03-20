@@ -5,7 +5,7 @@ const PlusOneButton = ({ children, onClick }) => {
     return <button onClick={onClick}>{children}</button>;
 };
 export default memo(PlusOneButton, (prevProps, nextProps) => {
-    if(prevProps.onClick !== nextProps.onClick) {
+    if(prevProps.onClick != nextProps.onClick) {
         return false;
     }
         return true;
