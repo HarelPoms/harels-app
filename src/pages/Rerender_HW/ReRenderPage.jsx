@@ -5,24 +5,18 @@ import NumberTextBox from "./ReRenderComponents/textBox"
 
 const ReRenderPage = () => {
     const [txt, setTxt] = useState(0);
-    // const handleTxtChange = (e) => {
-    //     if(typeof(e.target.value) == "number"){
-    //         setTxt(e.target.value);
-    //     }
-    // };
     const handleTxtChange = useCallback((e) => {
-        console.log("txt from box", txt);
+        // console.log("txt from box before change", txt);
         // if(typeof(e.target.value) == "number"){
         //     setTxt(e.target.value);
         // }
         setTxt(e.target.value);
+        // console.log("txt from box after change", txt);
     }, [txt]);
     const plusOneClick = useCallback(() => {
-        console.log("txt from box", txt);
         setTxt(Number(txt) + 1);
     }, [txt]);
     const minusOneClick = useCallback(() => {
-        console.log("txt from box", txt);
         setTxt(txt - 1);
     }, [txt]);
     return (
