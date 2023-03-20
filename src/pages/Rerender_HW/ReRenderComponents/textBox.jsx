@@ -5,7 +5,7 @@ const NumberTextBox = ({ txtValue , onChange }) => {
     return <input type="number" value={txtValue} onChange={onChange} />;
 };
 export default memo(NumberTextBox, (prevProps, nextProps) => {
-    if (prevProps.txtValue != nextProps.txtValue) {
+    if (prevProps.txtValue !== nextProps.txtValue) {
         return false; // rerender
     } else {
         return true; // don't rerender
