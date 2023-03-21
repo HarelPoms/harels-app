@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -12,6 +13,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Alert from "@mui/material/Alert";
+import axios from "axios";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import validateRegisterSchema from "../validation/registerValidation";
 import ROUTES from "../routes/ROUTES";
@@ -19,6 +21,7 @@ import ROUTES from "../routes/ROUTES";
 const theme = createTheme();
 
 const RegisterPage = () => {
+    const navigate = useNavigate();
     const [inputState, setInputState] = useState({
         firstName: "",
         lastName: "",
@@ -26,9 +29,26 @@ const RegisterPage = () => {
         password: "",
     });
     const [inputsErrorsState, setInputsErrorsState] = useState({});
-    const handleBtnClick = (ev) => {
-        const joiResponse = validateRegisterSchema(inputState);
-        setInputsErrorsState(joiResponse);
+    const handleBtnClick = async (ev) => {
+        try {
+            const joiResponse = validateRegisterSchema(inputState);
+            setInputsErrorsState(joiResponse);
+            if(joiResponse){
+                return;
+            }
+            const { data } = await axios.post(
+                "/users/register",
+                {
+                    "name": inputState.firstName + " " + inputState.lastName,
+                    "email": inputState.email,
+                    "password": inputState.password
+                }
+            );
+            navigate(ROUTES.LOGIN);
+            
+        } catch (err) {
+            console.log("error from axios", err.response.data);
+        }
     };
     const handleInputChange = (ev) => {
         let newInputState = JSON.parse(JSON.stringify(inputState));
@@ -70,7 +90,7 @@ const RegisterPage = () => {
                     value={inputState.firstName}
                     onChange={handleInputChange}
                     />
-                    {inputsErrorsState.firstName && (
+                    {inputsErrorsState && inputsErrorsState.firstName && (
                     <Alert severity="warning">
                         {inputsErrorsState.firstName.join("<br>")}
                     </Alert>
@@ -87,7 +107,7 @@ const RegisterPage = () => {
                     value={inputState.lastName}
                     onChange={handleInputChange}
                     />
-                    {inputsErrorsState.lastName && (
+                    {inputsErrorsState && inputsErrorsState.lastName && (
                     <Alert severity="warning">
                         {inputsErrorsState.lastName.join("<br>")}
                     </Alert>
@@ -104,7 +124,7 @@ const RegisterPage = () => {
                     value={inputState.email}
                     onChange={handleInputChange}
                     />
-                    {inputsErrorsState.email && (
+                    {inputsErrorsState && inputsErrorsState.email && (
                     <Alert severity="warning">
                         {inputsErrorsState.email.join("<br>")}
                     </Alert>
@@ -122,7 +142,7 @@ const RegisterPage = () => {
                     value={inputState.password}
                     onChange={handleInputChange}
                     />
-                    {inputsErrorsState.password && (
+                    {inputsErrorsState && inputsErrorsState.password && (
                     <Alert severity="warning">
                         {inputsErrorsState.password.join("<br>")}
                     </Alert>
