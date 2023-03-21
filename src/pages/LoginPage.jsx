@@ -9,6 +9,7 @@ import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
@@ -38,16 +39,28 @@ const LoginPage = () => {
         setInputState((newInputState) => newInputState);
     }, [inputState]);
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
+    const handleSubmit = async (event) => {
+        try {
+            event.preventDefault();
 
-        const joiResponse = validateLoginSchema(inputState);
-        setLoginInputsErrorsState(joiResponse);
-        if (!joiResponse) {
-            //move to homepage
+            const joiResponse = validateLoginSchema(inputState);
+            setLoginInputsErrorsState(joiResponse);
+            if(joiResponse){
+                return;
+            }
+            const { data } = await axios.post(
+                "/users/login",
+                {
+                    "email": inputState.email,
+                    "password": inputState.password
+                }
+            );
+            localStorage.setItem("token", data.token);
             navigate(ROUTES.HOME);
         }
-
+        catch(err){
+            console.log("error from axios", err.response.data);
+        }
     };
 
     return (
@@ -82,7 +95,7 @@ const LoginPage = () => {
                 value={inputState.email}
                 onChange={handleInputChange}
                 />
-                {loginInputsErrorsState.email && (
+                {loginInputsErrorsState && loginInputsErrorsState.email && (
                     <Alert severity="warning">
                         {loginInputsErrorsState.email.join("<br>")}
                     </Alert>
@@ -99,7 +112,7 @@ const LoginPage = () => {
                 value={inputState.password}
                 onChange={handleInputChange}
                 />
-                {loginInputsErrorsState.password && (
+                {loginInputsErrorsState && loginInputsErrorsState.password && (
                     <Alert severity="warning">
                         {loginInputsErrorsState.password.join("\n")}
                     </Alert>
