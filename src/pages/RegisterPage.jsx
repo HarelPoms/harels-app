@@ -14,6 +14,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Alert from "@mui/material/Alert";
 import axios from "axios";
+import { toast } from "react-toastify";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import validateRegisterSchema from "../validation/registerValidation";
 import ROUTES from "../routes/ROUTES";
@@ -47,7 +48,8 @@ const RegisterPage = () => {
             navigate(ROUTES.LOGIN);
             
         } catch (err) {
-            console.log("error from axios", err.response.data);
+            console.log("error from axios in register page", err.response.data);
+            toast.error("Oops");
         }
     };
     const handleInputChange = (ev) => {

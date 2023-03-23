@@ -10,6 +10,7 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-toastify";
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
@@ -59,7 +60,8 @@ const LoginPage = () => {
             navigate(ROUTES.HOME);
         }
         catch(err){
-            console.log("error from axios", err.response.data);
+            console.log("error from axios in login page ", err.response.data);
+            toast.error("Oops");
         }
     };
 

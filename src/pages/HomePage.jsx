@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { CircularProgress } from '@mui/material';
 import axios from "axios";
+import { toast } from "react-toastify";
 
 
 
@@ -14,7 +15,10 @@ const HomePage = () => {
         axios.get("/cards/cards").then(({data})=>{
             console.log("data", data);
             setCardsArr(data);
-        }).catch((err)=> {console.log("error from axios " + err);});
+        }).catch((err)=> {
+            console.log("error from axios " + err);
+            toast.error("Oops");
+        });
     },[])
     const handleDeleteFromInitialCardsArr = async (id) => {
         // let newCardsArr = JSON.parse(JSON.stringify(cardsArr));
