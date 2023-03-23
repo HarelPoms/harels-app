@@ -10,48 +10,12 @@ import Alert from "@mui/material/Alert";
 import EditIcon from "@mui/icons-material/Edit";
 import { CircularProgress } from '@mui/material';
 import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
+
 
 import ROUTES from "../routes/ROUTES";
 import validateEditSchema from "../validation/editValidation";
 import validateId from "../validation/idValidation";
-
-const initialCardsArr = [
-  {
-    id: 1,
-    title: "nature 1",
-    price: 112,
-    description: `Here’s a gift to help bring a little more beauty to your life in September: An image of the world-famous Spirit Island at Maligne Lake in Alberta’s Jasper National Park, specially prepared to serve as a wallpaper or background image for your computer, tablet or mobile phone.
-        Use the links below to download the wallpaper in the appropriate size, and enjoy the scene all month long. We’ll create another beautiful Alberta image next month for you to enjoy.
-        If you want to see Spirit Island and Jasper National Park under the stars yourself (don’t forget to check out the park’s Dark Sky Festival from Oct. 14 to 23), scroll down for more information.`,
-  },
-  {
-    id: 2,
-    img: "http://az837918.vo.msecnd.net/publishedimages/articles/1733/en-CA/images/1/free-download-this-stunning-alberta-scene-for-your-device-background-image-L-6.jpg",
-    title: "nature 2",
-    price: 112,
-    description: `Here’s a gift to help bring a little more beauty to your life in September: An image of the world-famous Spirit Island at Maligne Lake in Alberta’s Jasper National Park, specially prepared to serve as a wallpaper or background image for your computer, tablet or mobile phone.
-        Use the links below to download the wallpaper in the appropriate size, and enjoy the scene all month long. We’ll create another beautiful Alberta image next month for you to enjoy.
-        If you want to see Spirit Island and Jasper National Park under the stars yourself (don’t forget to check out the park’s Dark Sky Festival from Oct. 14 to 23), scroll down for more information.`,
-  },
-  {
-    id: 3,
-    img: "http://az837918.vo.msecnd.net/publishedimages/articles/1733/en-CA/images/1/free-download-this-stunning-alberta-scene-for-your-device-background-image-L-6.jpg",
-    title: "nature 3",
-    price: 112,
-    description: `Here’s a gift to help bring a little more beauty to your life in September: An image of the world-famous Spirit Island at Maligne Lake in Alberta’s Jasper National Park, specially prepared to serve as a wallpaper or background image for your computer, tablet or mobile phone.
-        Use the links below to download the wallpaper in the appropriate size, and enjoy the scene all month long. We’ll create another beautiful Alberta image next month for you to enjoy.
-        If you want to see Spirit Island and Jasper National Park under the stars yourself (don’t forget to check out the park’s Dark Sky Festival from Oct. 14 to 23), scroll down for more information.`,
-  },
-  {
-    id: 4,
-    img: "http://az837918.vo.msecnd.net/publishedimages/articles/1733/en-CA/images/1/free-download-this-stunning-alberta-scene-for-your-device-background-image-L-6.jpg",
-    title: "nature 4",
-    price: 112,
-    description: `Here’s a gift to help bring a little more beauty to your life in September: An image of the world-famous Spirit Island at Maligne Lake in Alberta’s Jasper National Park, specially prepared to serve as a wallpaper or background image for your computer, tablet or mobile phone.
-        Use the links below to download the wallpaper in the appropriate size, and enjoy the scene all month long. We’ll create another beautiful Alberta image next month for you to enjoy.
-        If you want to see Spirit Island and Jasper National Park under the stars yourself (don’t forget to check out the park’s Dark Sky Festival from Oct. 14 to 23), scroll down for more information.`,
-  },
-];
 
 const EditCardPage = () => {
   const { id } = useParams();
@@ -60,18 +24,27 @@ const EditCardPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    let isIdValid = validateId(id);
-    if (isIdValid) {
-      let editedCard = initialCardsArr.find((item) => item.id == id);
-      if(!editedCard){
-        navigate(ROUTES.PAGENOTFOUND);
-        return;
+    (async () => {
+      try{
+        let isIdValid = validateId({id});
+        if (isIdValid) {
+          const {data} = await axios.get("/cards/card/"+id);
+          console.log(data);
+          if(!data){
+            //navigate(ROUTES.PAGENOTFOUND);
+            return;
+          }
+          setInputState(data);
+        }
+        else{
+          //navigate(ROUTES.PAGENOTFOUND);
+        }
       }
-      setInputState(editedCard);
-    }
-    else{
-      navigate(ROUTES.PAGENOTFOUND);
-    }
+      catch(err){
+        console.log(err);
+      }
+    })();
+    
   }, [id]);
   const handleSaveBtnClick = (ev) => {
     const joiResponse = validateEditSchema(inputState);
@@ -127,8 +100,8 @@ const EditCardPage = () => {
             maxHeight: { xs: 233, md: 167 },
             maxWidth: { xs: 350, md: 250 },
           }}
-          alt="The house from the offer."
-          src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&w=350&dpr=2"
+          alt={inputState.image.alt}
+          src={inputState.image.url}
         />
         <Box component="div" noValidate sx={{ mt: 3 }}>
           <Grid container spacing={2}>
@@ -140,7 +113,7 @@ const EditCardPage = () => {
                 label="Image URL"
                 name="img"
                 autoComplete="img"
-                value={inputState.img}
+                value={inputState.image.url}
                 onChange={handleInputChange}
               />
               {inputsErrorsState.img && (
@@ -174,12 +147,12 @@ const EditCardPage = () => {
               <TextField
                 required
                 fullWidth
-                name="price"
-                label="Price"
-                type="number"
-                id="price"
-                autoComplete="price"
-                value={inputState.price}
+                name="subtitle"
+                label="Subtitle"
+                type="string"
+                id="subtitle"
+                autoComplete="subtitle"
+                value={inputState.subTitle}
                 onChange={handleInputChange}
               />
               {inputsErrorsState.price && (
