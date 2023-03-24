@@ -13,7 +13,6 @@ const HomePage = () => {
     const navigate = useNavigate();
     useEffect(()=>{
         axios.get("/cards/cards").then(({data})=>{
-            console.log("data", data);
             setCardsArr(data);
         }).catch((err)=> {
             console.log("error from axios " + err);
@@ -25,11 +24,18 @@ const HomePage = () => {
         // newCardsArr = newCardsArr.filter((item) => item.id != id);
         // setCardsArr(newCardsArr);
         try{
-            setCardsArr((newCardsArr) => newCardsArr.filter((item) => item._id != id));
-            await axios.delete("/cards/" + id);
+            let response = await axios.delete("/cards/" + id);
+            if(response.status === 200){
+                setCardsArr((newCardsArr) => newCardsArr.filter((item) => item._id != id));
+                toast.success("Card deletion successful");
+            }
+            else{
+                toast.error("Card Deletion Failed");
+            }
         }
         catch(err){
             console.log("error when deleting " + err.response.data);
+            toast.error("Card Deletion Failed");
         }
     };
     const handleEditFromInitialCardsArr = (id) => {

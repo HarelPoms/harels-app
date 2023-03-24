@@ -11,6 +11,8 @@ import EditIcon from "@mui/icons-material/Edit";
 import { CircularProgress } from '@mui/material';
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-toastify";
+
 
 
 import ROUTES from "../routes/ROUTES";
@@ -29,12 +31,14 @@ const EditCardPage = () => {
         let isIdValid = validateId({id});
         if (isIdValid) {
           const {data} = await axios.get("/cards/card/"+id);
-          console.log(data);
+          //console.log(data);
           if(!data){
             //navigate(ROUTES.PAGENOTFOUND);
             return;
           }
-          setInputState(data);
+          // let redactedData = {img: data.image, title: data.title, subTitle: data.subTitle, description:data.description};
+          let redactedData = {title: data.title, subTitle: data.subTitle, description:data.description, address: data.address, phone: data.phone, url: data.image.url, alt: data.image.alt };
+          setInputState(redactedData);
         }
         else{
           //navigate(ROUTES.PAGENOTFOUND);
@@ -42,6 +46,7 @@ const EditCardPage = () => {
       }
       catch(err){
         console.log(err);
+        toast.error("Oops");
       }
     })();
     
@@ -49,9 +54,18 @@ const EditCardPage = () => {
   const handleSaveBtnClick = (ev) => {
     const joiResponse = validateEditSchema(inputState);
     setInputsErrorsState(joiResponse);
-    console.log(joiResponse);
     
     if (!joiResponse) {
+
+      (async () => {
+        try{
+          await axios.put("/cards/" + id, inputState);
+        }
+        catch(err){
+          console.log("Error while saving edited card " + err);
+        }
+      })();
+
       //move to homepage
       navigate(ROUTES.HOME);
     }
@@ -100,8 +114,8 @@ const EditCardPage = () => {
             maxHeight: { xs: 233, md: 167 },
             maxWidth: { xs: 350, md: 250 },
           }}
-          alt={inputState.image.alt}
-          src={inputState.image.url}
+          alt={inputState.alt}
+          src={inputState.url}
         />
         <Box component="div" noValidate sx={{ mt: 3 }}>
           <Grid container spacing={2}>
@@ -109,16 +123,16 @@ const EditCardPage = () => {
               <TextField
                 required
                 fullWidth
-                id="img"
+                id="url"
                 label="Image URL"
-                name="img"
-                autoComplete="img"
-                value={inputState.image.url}
+                name="url"
+                autoComplete="url"
+                value={inputState.url}
                 onChange={handleInputChange}
               />
-              {inputsErrorsState.img && (
+              {inputsErrorsState.url && (
                 <Alert severity="warning">
-                  {inputsErrorsState.img.map((item) => (
+                  {inputsErrorsState.url.map((item) => (
                     <div key={"title-errors" + item}>{item}</div>
                   ))}
                 </Alert>
@@ -150,14 +164,14 @@ const EditCardPage = () => {
                 name="subtitle"
                 label="Subtitle"
                 type="string"
-                id="subtitle"
+                id="subTitle"
                 autoComplete="subtitle"
                 value={inputState.subTitle}
                 onChange={handleInputChange}
               />
-              {inputsErrorsState.price && (
+              {inputsErrorsState.subTitle && (
                 <Alert severity="warning">
-                  {inputsErrorsState.price.map((item) => (
+                  {inputsErrorsState.subTitle.map((item) => (
                     <div key={"price-errors" + item}>{item}</div>
                   ))}
                 </Alert>

@@ -35,7 +35,6 @@ const CardComponent = ({
     onEdit,
 }) => {
     const handleDeleteBtnClick = () => {
-        console.log("id", id);
         onDelete(id);
     };
     const handleEditBtnClick = () => {
