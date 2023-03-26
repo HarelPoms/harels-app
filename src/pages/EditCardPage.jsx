@@ -52,24 +52,23 @@ const EditCardPage = () => {
     
   }, [id]);
   const handleSaveBtnClick = (ev) => {
-    const joiResponse = validateEditSchema(inputState);
-    setInputsErrorsState(joiResponse);
-    
-    if (!joiResponse) {
+		(async () => {
+			try{
+				const joiResponse = validateEditSchema(inputState);
+				setInputsErrorsState(joiResponse);
 
-      (async () => {
-        try{
-          await axios.put("/cards/" + id, inputState);
-        }
-        catch(err){
-          console.log("Error while saving edited card " + err);
-        }
-      })();
-
-      //move to homepage
-      navigate(ROUTES.HOME);
-    }
-  };
+				if (!joiResponse) {
+					await axios.put("/cards/" + id, inputState);
+          //move to homepage
+          navigate(ROUTES.HOME);
+				}
+			
+			}
+			catch(err){
+				console.log("Error while saving edited card " + err);
+			}
+		})();
+	};
 
   const handleCancelBtnClick = (ev) => {
     //move to homepage
