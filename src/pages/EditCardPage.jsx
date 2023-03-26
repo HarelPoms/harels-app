@@ -22,7 +22,7 @@ import validateId from "../validation/idValidation";
 const EditCardPage = () => {
   const { id } = useParams();
   const [inputState, setInputState] = useState(null);
-  const [inputsErrorsState, setInputsErrorsState] = useState({});
+  const [inputsErrorsState, setInputsErrorsState] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -33,7 +33,7 @@ const EditCardPage = () => {
           const {data} = await axios.get("/cards/card/"+id);
           //console.log(data);
           if(!data){
-            //navigate(ROUTES.PAGENOTFOUND);
+            navigate(ROUTES.PAGENOTFOUND);
             return;
           }
           // let redactedData = {img: data.image, title: data.title, subTitle: data.subTitle, description:data.description};
@@ -41,7 +41,7 @@ const EditCardPage = () => {
           setInputState(redactedData);
         }
         else{
-          //navigate(ROUTES.PAGENOTFOUND);
+          navigate(ROUTES.PAGENOTFOUND);
         }
       }
       catch(err){
@@ -130,7 +130,7 @@ const EditCardPage = () => {
                 value={inputState.url}
                 onChange={handleInputChange}
               />
-              {inputsErrorsState.url && (
+              {inputsErrorsState && inputsErrorsState.url && (
                 <Alert severity="warning">
                   {inputsErrorsState.url.map((item) => (
                     <div key={"title-errors" + item}>{item}</div>
@@ -149,7 +149,7 @@ const EditCardPage = () => {
                 value={inputState.title}
                 onChange={handleInputChange}
               />
-              {inputsErrorsState.title && (
+              {inputsErrorsState && inputsErrorsState.title && (
                 <Alert severity="warning">
                   {inputsErrorsState.title.map((item) => (
                     <div key={"title-errors" + item}>{item}</div>
@@ -169,9 +169,9 @@ const EditCardPage = () => {
                 value={inputState.subTitle}
                 onChange={handleInputChange}
               />
-              {inputsErrorsState.subTitle && (
+              {inputsErrorsState && inputsErrorsState.subTitle && (
                 <Alert severity="warning">
-                  {inputsErrorsState.subTitle.map((item) => (
+                  {inputsErrorsState && inputsErrorsState.subTitle.map((item) => (
                     <div key={"price-errors" + item}>{item}</div>
                   ))}
                 </Alert>
@@ -188,9 +188,9 @@ const EditCardPage = () => {
                 value={inputState.description}
                 onChange={handleInputChange}
               />
-              {inputsErrorsState.description && (
+              {inputsErrorsState && inputsErrorsState.description && (
                 <Alert severity="warning">
-                  {inputsErrorsState.description.map((item) => (
+                  {inputsErrorsState && inputsErrorsState.description.map((item) => (
                     <div key={"description-errors" + item}>{item}</div>
                   ))}
                 </Alert>
