@@ -4,6 +4,8 @@ import RegisterPage from "../pages/RegisterPage";
 import LoginPage from "../pages/LoginPage"
 import EditCardPage from "../pages/EditCardPage"
 import ReRenderPage from "../pages/Rerender_HW/ReRenderPage"
+import RP1 from "../pages/RP1";
+import RP2 from "../pages/RP2";
 import ROUTES from "./ROUTES";
 
 const Router = () => {
@@ -14,6 +16,8 @@ const Router = () => {
             <Route path={ROUTES.LOGIN} element={<LoginPage />} />
             <Route path="/edit/:id" element={<EditCardPage />} />
             <Route path="/rrp" element={<ReRenderPage />} />
+            <Route path="/rp1" element={<RP1 />} />
+            <Route path="/rp2" element={<RP2 />} />
             <Route path="*" element={<h1>404</h1>} />
         </Routes>
     );
