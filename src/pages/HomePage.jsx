@@ -52,7 +52,7 @@ const HomePage = () => {
             <Grid item xs={4} key={item._id + Date.now()}>
                 <CardComponent
                 id={item._id}
-                img={item.image.url}
+                img={item.image ? item.image.url : ""}
                 title={item.title}
                 subTitle={item.subTitle}
                 description={item.description}
