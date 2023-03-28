@@ -12,7 +12,7 @@ const nameSlice = createSlice({
         clearName(state){
             state.name = "";
         },
-        updateName(state){
+        addDotToName(state){
             state.name = state.name + ".";
         }
     }
