@@ -1,7 +1,7 @@
 import { Container, ThemeProvider,
   createTheme,
   CssBaseline, } from '@mui/material';
-import { useState } from "react";
+import { useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import './App.css';
@@ -23,10 +23,9 @@ const dark = {
 
 
 function App() {
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
-  const handleToggle = () => {
-    setIsDarkTheme(!isDarkTheme); //localhost:3000/edit/123213
-  };
+  const isDarkTheme = useSelector(
+    (bigPie) => bigPie.darkThemeSlice.isDarkTheme
+  );
   return (
     <ThemeProvider theme={isDarkTheme ? createTheme(dark) : createTheme(light)}>
       <CssBaseline />
@@ -44,7 +43,7 @@ function App() {
       />
       <Container>
         <header>
-          <MuiNavbar isDarkThemeBool={isDarkTheme} setIsDarkThemeFromApp={handleToggle} />
+          <MuiNavbar />
         </header>
         <main>
           <Router />

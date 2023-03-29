@@ -11,6 +11,8 @@ import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import {NavLink} from "react-router-dom";
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { darkThemeActions } from "../../store/darkTheme";
 
 import {Switch} from '@mui/material';
 
@@ -22,8 +24,16 @@ const pages = [
   {label: "Login Page", url:ROUTES.LOGIN}
   ];
 
-const MuiNavbar = ({isDarkThemeBool, setIsDarkThemeFromApp}) => {
+const MuiNavbar = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
+  const dispatch = useDispatch();
+  const isDarkTheme = useSelector(
+    (bigPie) => bigPie.darkThemeSlice.isDarkTheme
+  );
+
+  const changeTheme = () => {
+    dispatch(darkThemeActions.changeTheme());
+  };
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -66,7 +76,7 @@ const MuiNavbar = ({isDarkThemeBool, setIsDarkThemeFromApp}) => {
               p: 1,
             }}
           >
-            <Switch value={isDarkThemeBool} onChange={setIsDarkThemeFromApp} />
+            <Switch value={isDarkTheme} onChange={changeTheme} />
           </Box>
           {/* hamburger with menu */}
           <Box
