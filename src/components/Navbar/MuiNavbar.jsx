@@ -60,7 +60,14 @@ const MuiNavbar = ({isDarkThemeBool, setIsDarkThemeFromApp}) => {
             ))}
               
           </Box>
-          <Switch value={isDarkThemeBool} onChange={setIsDarkThemeFromApp} />
+          <Box
+            sx={{
+              my: 2,
+              p: 1,
+            }}
+          >
+            <Switch value={isDarkThemeBool} onChange={setIsDarkThemeFromApp} />
+          </Box>
           {/* hamburger with menu */}
           <Box
             sx={{
