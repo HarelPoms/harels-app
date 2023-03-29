@@ -21,7 +21,8 @@ import ROUTES from "../../routes/ROUTES"
 const pages = [
   {label: "Home Page", url:ROUTES.HOME},
   {label:"Register", url:ROUTES.REGISTER}, 
-  {label: "Login Page", url:ROUTES.LOGIN}
+  {label: "Login Page", url:ROUTES.LOGIN},
+  {label: "New Card Page", url:ROUTES.NEWCARD}
   ];
 
 const MuiNavbar = () => {
