@@ -22,7 +22,8 @@ const pages = [
   {label: "Home Page", url:ROUTES.HOME},
   {label:"Register", url:ROUTES.REGISTER}, 
   {label: "Login Page", url:ROUTES.LOGIN},
-  {label: "New Card Page", url:ROUTES.NEWCARD}
+  {label: "New Card Page", url:ROUTES.NEWCARD},
+  {label: "Profile", url: ROUTES.PROFILE}
   ];
 
 const MuiNavbar = () => {
