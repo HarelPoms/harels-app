@@ -33,7 +33,7 @@ const ProfilePage = () => {
                 navigate(ROUTES.PAGENOTFOUND);
                 return;
             }
-            let redactedData = {name: data.name, email: data.email, password:data.password, createdAt: data.createdAt, biz: data.biz, isAdmin: data.isAdmin };
+            let redactedData = {name: data.name, email: data.email, biz: data.biz, isAdmin: data.isAdmin };
             console.log(redactedData);
             setInputState(redactedData);
         }
@@ -148,26 +148,6 @@ const ProfilePage = () => {
                         ))}
                         </Alert>
                     )}
-                </Grid>
-                <Grid item xs={12}>
-                <TextField
-                    required
-                    fullWidth
-                    name="password"
-                    label="Password"
-                    type="password"
-                    id="password"
-                    autoComplete="password"
-                    value={inputState.password}
-                    onChange={handleInputChange}
-                />
-                {inputsErrorsState && inputsErrorsState.password && (
-                    <Alert severity="warning">
-                    {inputsErrorsState && inputsErrorsState.password.map((item) => (
-                        <div key={"password-errors" + item}>{item}</div>
-                    ))}
-                    </Alert>
-                )}
                 </Grid>
                 <Grid item xs={6}>
                     <Button
